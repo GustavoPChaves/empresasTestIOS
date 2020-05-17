@@ -47,8 +47,8 @@ struct Portfolio: Codable {
 struct Enterprise: Codable{
     
 }
-struct UserCredentials {
-    let token: String
-    let uid: String
-    let client: String
+struct Headers {
+    var token: String
+    var uid: String
+    var client: String
 }

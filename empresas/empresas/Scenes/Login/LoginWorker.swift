@@ -16,9 +16,9 @@ class LoginWorker
 {
   func doSomeWork()
   {
-    Networking.shared.doLogin(email: "testeapple@ioasys.com.br", password: "12341234") { (LoginResponse) in
+    Networking.shared.doLogin(email: "testeapple@ioasys.com.br", password: "12341234") { (LoginResponse, header) in
         print(LoginResponse)
-        print("a")
+        print(header)
     }
     
   }
