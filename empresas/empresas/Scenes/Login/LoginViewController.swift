@@ -69,12 +69,211 @@ class LoginViewController: UIViewController, LoginDisplayLogic
   override func viewDidLoad()
   {
     super.viewDidLoad()
+    setupView()
     doSomething()
+    
   }
   
   // MARK: Do something
   
   //@IBOutlet weak var nameTextField: UITextField!
+    var backgroundImage: UIImageView!
+    var emailLabel: UILabel!
+    var passwordLabel: UILabel!
+    var emailTextField: UITextField!
+    var passwordTextField: UITextField!
+    var loginButton: UIButton!
+    var passwordRevealButton: UIButton!
+    var greetingsLabel: UILabel!
+    var iconImage: UIImageView!
+    var errorFeedbackLabel: UILabel!
+    var errorEmailFeedbackImage: UIImageView!
+    var errorPasswordFeedbackImage: UIImageView!
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+        
+    }
+    
+    func setupView(){
+        backgroundImage = UIImageView(frame: view.frame)
+        backgroundImage.image = #imageLiteral(resourceName: "background")
+        let path = UIBezierPath(ovalIn: CGRect(x: -view.frame.width/2, y: -view.frame.height*2/3, width: view.frame.width * 2, height: view.frame.height ))
+        backgroundImage.mask(withPath: path)
+        
+        iconImage = UIImageView(image: #imageLiteral(resourceName: "logo_icon"))
+        errorPasswordFeedbackImage = UIImageView(image: #imageLiteral(resourceName: "loginError"))
+        errorPasswordFeedbackImage.isHidden = true
+        errorEmailFeedbackImage = UIImageView(image: #imageLiteral(resourceName: "loginError"))
+        errorEmailFeedbackImage.isHidden = true
+        
+        greetingsLabel = UILabel()
+        greetingsLabel.setup(text: "Seja bem vindo ao empresas!", color: .white, fontSize: 20)
+        
+        emailLabel = UILabel()
+        emailLabel.setup(text: "Email", color: UIColor(named: "gray3")!, fontSize: 14)
+        
+        passwordLabel = UILabel()
+        passwordLabel.setup(text: "Senha", color: UIColor(named: "gray3")!, fontSize: 14)
+        
+        errorFeedbackLabel = UILabel()
+        errorFeedbackLabel.setup(text: "Credenciais incorretas", color: UIColor(named: "red")!, fontSize: 14)
+        errorFeedbackLabel.isHidden = true
+        
+        emailTextField = UITextField()
+        emailTextField.delegate = self
+        emailTextField.clipsToBounds = true
+        emailTextField.layer.masksToBounds = true
+        emailTextField.autocapitalizationType = .none
+        emailTextField.layer.cornerRadius = 4
+        emailTextField.layer.borderColor = UIColor(named: "red")?.cgColor
+        emailTextField.backgroundColor = UIColor(named: "gray1")
+        emailTextField.layer.borderWidth = 0
+        emailTextField.borderStyle = .none
+        
+        passwordTextField = UITextField()
+        passwordTextField.delegate = self
+        passwordTextField.layer.masksToBounds = true
+        passwordTextField.isSecureTextEntry = true
+        passwordTextField.clipsToBounds = true
+        passwordTextField.autocapitalizationType = .none
+        passwordTextField.layer.cornerRadius = 4
+        passwordTextField.layer.borderColor = UIColor(named: "red")?.cgColor
+        passwordTextField.layer.borderWidth = 0
+        passwordTextField.backgroundColor = UIColor(named: "gray1")
+        passwordTextField.borderStyle = .none
+        
+        loginButton = UIButton()
+        loginButton.setTitle("ENTRAR", for: .normal)
+        loginButton.backgroundColor = UIColor(named: "pink")
+        //loginButton.addTarget(self, action: #selector(doLogin), for: .touchUpInside)
+        loginButton.layer.cornerRadius = 8
+        
+        passwordRevealButton = UIButton()
+        passwordRevealButton.setBackgroundImage(#imageLiteral(resourceName: "passwordReveal"), for: .normal)
+        passwordRevealButton.addTarget(self, action: #selector(revealPassword), for: .touchUpInside)
+        
+        view.addSubviews([backgroundImage, emailLabel, passwordLabel, emailTextField, passwordTextField, loginButton, greetingsLabel, iconImage, errorFeedbackLabel, errorPasswordFeedbackImage, errorEmailFeedbackImage, passwordRevealButton])
+        
+        setupConstraints()
+        
+    }
+    
+    func setupConstraints()
+    {
+        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        backgroundImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        backgroundImage.bottomAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height/3).isActive = true
+        
+        iconImage.translatesAutoresizingMaskIntoConstraints = false
+        iconImage.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        iconImage.heightAnchor.constraint(equalToConstant: 31.58).isActive = true
+        iconImage.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+        iconImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 84).isActive = true
+        
+        greetingsLabel.translatesAutoresizingMaskIntoConstraints = false
+        greetingsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+        greetingsLabel.topAnchor.constraint(equalTo: iconImage.bottomAnchor, constant: 16.42).isActive = true
+        
+        emailLabel.translatesAutoresizingMaskIntoConstraints = false
+        emailLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        emailLabel.topAnchor.constraint(equalTo: backgroundImage.bottomAnchor, constant: 28).isActive = true
+        
+        emailTextField.translatesAutoresizingMaskIntoConstraints = false
+        emailTextField.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        emailTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
+        emailTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        emailTextField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 4).isActive = true
+        
+        passwordLabel.translatesAutoresizingMaskIntoConstraints = false
+        passwordLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        passwordLabel.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 16).isActive = true
+
+        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
+        passwordTextField.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
+        passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        passwordTextField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 4).isActive = true
+        
+        passwordRevealButton.translatesAutoresizingMaskIntoConstraints = false
+        passwordRevealButton.centerYAnchor.constraint(equalTo: passwordTextField.centerYAnchor, constant: 0).isActive = true
+        passwordRevealButton.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        passwordRevealButton.widthAnchor.constraint(equalToConstant: 22).isActive = true
+        passwordRevealButton.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: -16).isActive = true
+        
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
+        loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
+        loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 40).isActive = true
+        loginButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        
+        errorEmailFeedbackImage.translatesAutoresizingMaskIntoConstraints = false
+        errorEmailFeedbackImage.centerYAnchor.constraint(equalTo: emailTextField.centerYAnchor, constant: 0).isActive = true
+        errorEmailFeedbackImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        errorEmailFeedbackImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        errorEmailFeedbackImage.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor, constant: -14).isActive = true
+        
+        errorPasswordFeedbackImage.translatesAutoresizingMaskIntoConstraints = false
+        errorPasswordFeedbackImage.centerYAnchor.constraint(equalTo: passwordTextField.centerYAnchor, constant: 0).isActive = true
+        errorPasswordFeedbackImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        errorPasswordFeedbackImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        errorPasswordFeedbackImage.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: -14).isActive = true
+        
+        errorFeedbackLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorFeedbackLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        errorFeedbackLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 4).isActive = true
+    }
+    
+    func updateLayout()
+    {
+        let path = UIBezierPath(ovalIn: CGRect(x: -view.frame.width/2, y: -view.frame.height*4/5, width: view.frame.width * 2, height: view.frame.height ))
+        
+        self.backgroundImage.mask(withPath: path)
+        self.greetingsLabel.isHidden = true
+        self.iconImage.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 52).isActive = true
+        self.backgroundImage.bottomAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height/5).isActive = true
+        
+        let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeIn, animations: {
+            self.view.layoutIfNeeded()
+        })
+        animator.startAnimation()
+    }
+    
+    func onError(){
+        presentErrorFeedback()
+    }
+    
+    @objc func revealPassword(){
+        passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry
+    }
+    
+    func presentErrorFeedback(_ option: Bool = true)
+    {
+        errorFeedbackLabel.isHidden = !option
+        errorPasswordFeedbackImage.isHidden = !option
+        errorEmailFeedbackImage.isHidden = !option
+        passwordRevealButton.isHidden = option
+
+        if option
+        {
+            emailTextField.layer.borderWidth = 1
+            passwordTextField.layer.borderWidth = 1
+        }
+        else
+        {
+            emailTextField.borderStyle = .none
+            passwordTextField.borderStyle = .none
+            emailTextField.layer.borderWidth = 0
+            passwordTextField.layer.borderWidth = 0
+
+        }
+        
+        emailTextField.backgroundColor = UIColor(named: "gray1")
+        passwordTextField.backgroundColor = UIColor(named: "gray1")
+    }
+    
   
   func doSomething()
   {
@@ -87,3 +286,22 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     //nameTextField.text = viewModel.name
   }
 }
+
+extension LoginViewController: UITextFieldDelegate
+{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTextField{
+            passwordTextField.becomeFirstResponder()
+        }
+        else{
+            textField.resignFirstResponder()
+        }
+        return false
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        updateLayout()
+        presentErrorFeedback(false)
+    }
+    
+}
+

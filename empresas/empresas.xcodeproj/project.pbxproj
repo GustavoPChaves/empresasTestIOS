@@ -19,6 +19,8 @@
 		8C5F7BE324705B9200DAEEF1 /* LoginModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F7BDD24705B9200DAEEF1 /* LoginModels.swift */; };
 		8C5F7BE424705B9200DAEEF1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F7BDE24705B9200DAEEF1 /* LoginViewController.swift */; };
 		8C5F7BE524705B9200DAEEF1 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F7BDF24705B9200DAEEF1 /* LoginInteractor.swift */; };
+		8C5F7BE724706A8500DAEEF1 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F7BE624706A8500DAEEF1 /* UILabel+Extension.swift */; };
+		8C5F7BE924706AAC00DAEEF1 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F7BE824706AAC00DAEEF1 /* UIView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		8C5F7BDD24705B9200DAEEF1 /* LoginModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModels.swift; sourceTree = "<group>"; };
 		8C5F7BDE24705B9200DAEEF1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8C5F7BDF24705B9200DAEEF1 /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
+		8C5F7BE624706A8500DAEEF1 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		8C5F7BE824706AAC00DAEEF1 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +90,8 @@
 		8C5F7BD324705A7C00DAEEF1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8C5F7BE624706A8500DAEEF1 /* UILabel+Extension.swift */,
+				8C5F7BE824706AAC00DAEEF1 /* UIView+Extension.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -212,8 +218,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C5F7BE924706AAC00DAEEF1 /* UIView+Extension.swift in Sources */,
 				8C5F7BE124705B9200DAEEF1 /* LoginWorker.swift in Sources */,
 				8C5F7BE024705B9200DAEEF1 /* LoginPresenter.swift in Sources */,
+				8C5F7BE724706A8500DAEEF1 /* UILabel+Extension.swift in Sources */,
 				8C5F7BE324705B9200DAEEF1 /* LoginModels.swift in Sources */,
 				8C5F7BE224705B9200DAEEF1 /* LoginRouter.swift in Sources */,
 				8C5F7BE424705B9200DAEEF1 /* LoginViewController.swift in Sources */,
