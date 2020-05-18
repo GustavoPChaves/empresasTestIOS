@@ -136,6 +136,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
         emailTextField.backgroundColor = UIColor(named: "gray1")
         emailTextField.layer.borderWidth = 0
         emailTextField.borderStyle = .none
+        emailTextField.setLeftPaddingPoints(12)
         
         passwordTextField = UITextField()
         passwordTextField.delegate = self
@@ -148,6 +149,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
         passwordTextField.layer.borderWidth = 0
         passwordTextField.backgroundColor = UIColor(named: "gray1")
         passwordTextField.borderStyle = .none
+        passwordTextField.setLeftPaddingPoints(12)
         
         loginButton = UIButton()
         loginButton.setTitle("ENTRAR", for: .normal)
@@ -335,6 +337,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     let request = Login.Something.Request(email: emailTextField.text!, password: passwordTextField.text!)
     interactor?.doSomething(request: request)
     displayLoading()
+    emailTextField.resignFirstResponder()
   }
   
   func displaySomething(viewModel: Login.Something.ViewModel)

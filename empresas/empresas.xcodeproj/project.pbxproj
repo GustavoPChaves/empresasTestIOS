@@ -14,6 +14,7 @@
 		8C4E65BB2473000A00AF0052 /* HomeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B52473000A00AF0052 /* HomeModels.swift */; };
 		8C4E65BC2473000A00AF0052 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B62473000A00AF0052 /* HomeViewController.swift */; };
 		8C4E65BD2473000A00AF0052 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B72473000A00AF0052 /* HomeInteractor.swift */; };
+		8C4E65BF24731F8A00AF0052 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65BE24731F8A00AF0052 /* UITextField+Extensions.swift */; };
 		8C5F7BC0246F149300DAEEF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F7BBF246F149300DAEEF1 /* AppDelegate.swift */; };
 		8C5F7BC2246F149300DAEEF1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F7BC1246F149300DAEEF1 /* SceneDelegate.swift */; };
 		8C5F7BC4246F149300DAEEF1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F7BC3246F149300DAEEF1 /* ViewController.swift */; };
@@ -41,6 +42,7 @@
 		8C4E65B52473000A00AF0052 /* HomeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModels.swift; sourceTree = "<group>"; };
 		8C4E65B62473000A00AF0052 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		8C4E65B72473000A00AF0052 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
+		8C4E65BE24731F8A00AF0052 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		8C5F7BBC246F149300DAEEF1 /* empresas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = empresas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C5F7BBF246F149300DAEEF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C5F7BC1246F149300DAEEF1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			children = (
 				8C5F7BE624706A8500DAEEF1 /* UILabel+Extension.swift */,
 				8C5F7BE824706AAC00DAEEF1 /* UIView+Extension.swift */,
+				8C4E65BE24731F8A00AF0052 /* UITextField+Extensions.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				8C5F7BE924706AAC00DAEEF1 /* UIView+Extension.swift in Sources */,
 				8C5F7BE124705B9200DAEEF1 /* LoginWorker.swift in Sources */,
 				8C6FE2D32471C52A00645A32 /* Endpoints.swift in Sources */,
+				8C4E65BF24731F8A00AF0052 /* UITextField+Extensions.swift in Sources */,
 				8C5F7BE024705B9200DAEEF1 /* LoginPresenter.swift in Sources */,
 				8C6FE2D12471C4A600645A32 /* Networking.swift in Sources */,
 				8C5F7BE724706A8500DAEEF1 /* UILabel+Extension.swift in Sources */,

@@ -71,11 +71,124 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     view.backgroundColor = .white
     super.viewDidLoad()
     doSomething()
+    setupView()
   }
   
   // MARK: Do something
   
   //@IBOutlet weak var nameTextField: UITextField!
+    var backgroundImage: UIImageView!
+    var searchTextField: UITextField!
+    var searchImage: UIImageView!
+    
+    var backgroundBottomConstraint: NSLayoutConstraint!
+    
+    
+    var animator: UIDynamicAnimator!
+    var gravity: UIGravityBehavior!
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+        if searchTextField.text == ""{
+            updateLayout(isEditing: false)
+        }
+    }
+    
+    func setupView()
+    {
+        backgroundImage = UIImageView(frame: view.frame)
+        backgroundImage.image = #imageLiteral(resourceName: "background")
+        backgroundImage.clipsToBounds = true
+        backgroundImage.layer.masksToBounds = true
+        
+        searchTextField = UITextField()
+        searchTextField.setLeftPaddingPoints(50)
+        searchTextField.placeholder = "Pesquise por empresa"
+        searchTextField.delegate = self
+        searchTextField.clipsToBounds = true
+        searchTextField.layer.masksToBounds = true
+        searchTextField.autocapitalizationType = .none
+        searchTextField.layer.cornerRadius = 4
+        searchTextField.backgroundColor = UIColor(named: "gray1")
+        searchTextField.borderStyle = .none
+        
+        searchImage = UIImageView(image: #imageLiteral(resourceName: "search"))
+        
+        
+        view.addSubviews([backgroundImage, searchTextField, searchImage])
+        
+        setupConstraints()
+        //createBackgroundAnimation()
+    }
+    
+    func createBackgroundAnimation(){
+        let containerView = UIView(frame: backgroundImage.frame)
+        backgroundImage.addSubview(containerView)
+        containerView.alpha = 0.5
+        animator = UIDynamicAnimator(referenceView: containerView)
+        
+        //let collision = UICollisionBehavior()
+        //collision.addItem(containerView)
+        gravity = UIGravityBehavior()
+        //collision.translatesReferenceBoundsIntoBoundary = true
+        
+        //animator.addBehavior(collision)
+         
+        for i in 1...4 {
+            let iconImage = UIImageView(image: #imageLiteral(resourceName: "logo_icon"))
+            iconImage.frame.size = CGSize(width: 40 * i, height: 31 * (i))
+
+            //collision.addBoundary(withIdentifier: iconImage, for: UIBezierPath(rect: iconImage.frame))
+            containerView.addSubview(iconImage)
+            
+            //collision.addItem(iconImage)
+            gravity.addItem(iconImage)
+        }
+    
+        animator.addBehavior(gravity)
+        
+    }
+    
+    func setupConstraints()
+    {
+        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        backgroundImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        backgroundBottomConstraint = backgroundImage.bottomAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height/3)
+        backgroundBottomConstraint.isActive = true
+        
+        searchTextField.translatesAutoresizingMaskIntoConstraints = false
+        searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
+        searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        searchTextField.topAnchor.constraint(equalTo: backgroundImage.bottomAnchor, constant: -24).isActive = true
+        searchTextField.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        
+        searchImage.translatesAutoresizingMaskIntoConstraints = false
+        searchImage.leadingAnchor.constraint(equalTo: searchTextField.leadingAnchor, constant: 16).isActive = true
+        searchImage.centerYAnchor.constraint(equalTo: searchTextField.centerYAnchor, constant: 0).isActive = true
+        searchImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        searchImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        
+    }
+    func updateLayout(isEditing: Bool = true)
+    {
+        if isEditing{
+            
+            backgroundBottomConstraint.constant = 44
+            
+        }
+        else{
+            
+            backgroundBottomConstraint.constant = view.frame.height/3
+        }
+        
+        let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut, animations: {
+            
+            self.view.layoutIfNeeded()
+        })
+        animator.startAnimation()
+    }
   
   func doSomething()
   {
@@ -89,3 +202,20 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     //nameTextField.text = viewModel.name
   }
 }
+
+extension HomeViewController: UITextFieldDelegate
+{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+
+        textField.resignFirstResponder()
+        if textField.text == ""{
+            updateLayout(isEditing: false)
+        }
+        return false
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        updateLayout(isEditing: true)
+    }
+    
+}
+

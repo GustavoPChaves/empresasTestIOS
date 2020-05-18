@@ -38,15 +38,15 @@ enum Endpoints {
         }
     }
     
-//    enum Statements: Endpoint {
-//        case getStatements(Int)
-//
-//        var path: String {
-//            switch self {
-//            case .getStatements(let userId):
-//                return "statements/\(userId)"
-//            }
-//        }
-//    }
+    enum Enterprises: Endpoint {
+        case getEnterprises(Int, String)
+
+        var path: String {
+            switch self {
+            case .getEnterprises(let type, let name):
+                return "enterprises?enterprise_types=1\(type)&name=\(name)"
+            }
+        }
+    }
     
 }
