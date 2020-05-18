@@ -14,7 +14,8 @@ import UIKit
 
 class HomeWorker
 {
-  func doSomeWork()
+  func doSomeWork(type: Int, name: String, headers: Headers, completion: @escaping (Enterprise?) -> ())
   {
+    Networking.shared.getEnterprises(type: type, name: name, headers: headers, completion: completion)
   }
 }

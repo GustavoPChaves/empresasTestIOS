@@ -44,9 +44,6 @@ struct Portfolio: Codable {
     }
 }
 
-struct Enterprise: Codable{
-    
-}
 struct Headers {
     var token: String
     var uid: String

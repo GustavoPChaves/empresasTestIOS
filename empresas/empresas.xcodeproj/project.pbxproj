@@ -32,6 +32,7 @@
 		8C6FE2D12471C4A600645A32 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FE2D02471C4A600645A32 /* Networking.swift */; };
 		8C6FE2D32471C52A00645A32 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FE2D22471C52A00645A32 /* Endpoints.swift */; };
 		8C6FE2D52471C5CA00645A32 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6FE2D42471C5CA00645A32 /* LoginResponse.swift */; };
+		8CB41F31247334F500B80B15 /* Enterprise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB41F30247334F500B80B15 /* Enterprise.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		8C6FE2D02471C4A600645A32 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		8C6FE2D22471C52A00645A32 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		8C6FE2D42471C5CA00645A32 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		8CB41F30247334F500B80B15 /* Enterprise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enterprise.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				8C6FE2D42471C5CA00645A32 /* LoginResponse.swift */,
+				8CB41F30247334F500B80B15 /* Enterprise.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				8C6FE2D52471C5CA00645A32 /* LoginResponse.swift in Sources */,
 				8C5F7BE324705B9200DAEEF1 /* LoginModels.swift in Sources */,
 				8C4E65BB2473000A00AF0052 /* HomeModels.swift in Sources */,
+				8CB41F31247334F500B80B15 /* Enterprise.swift in Sources */,
 				8C5F7BE224705B9200DAEEF1 /* LoginRouter.swift in Sources */,
 				8C5F7BE424705B9200DAEEF1 /* LoginViewController.swift in Sources */,
 				8C5F7BC4246F149300DAEEF1 /* ViewController.swift in Sources */,

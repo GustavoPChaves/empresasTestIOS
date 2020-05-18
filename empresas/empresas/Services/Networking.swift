@@ -77,7 +77,7 @@ class Networking{
         task.resume()
     }
     
-    func getEnterprises(type: Int, name: String, headers: Headers, completion: @escaping (LoginResponse) -> ()){
+    func getEnterprises(type: Int, name: String, headers: Headers, completion: @escaping (Enterprise?) -> ()){
         let path = Endpoints.Enterprises.getEnterprises(type, name).url
             //let parameters = ["email": email, "password": password]
             
@@ -124,7 +124,7 @@ class Networking{
 //                        headers.uid = responseHeader.value(forHTTPHeaderField: AuthenticationHeaders.uid) ?? ""
 //                    }
                     
-                    let response = try JSONDecoder().decode(LoginResponse.self, from: data)
+                    let response = try JSONDecoder().decode(Enterprise.self, from: data)
                     
                     //response.error = nil
                     completion(response)
@@ -132,7 +132,7 @@ class Networking{
                     //}
                 } catch let error {
                     print(error.localizedDescription)
-                    completion(LoginResponse(success: false, investor: nil, enterprise: nil, errors: [error.localizedDescription]))
+                    completion(nil)
                 }
             })
             task.resume()
