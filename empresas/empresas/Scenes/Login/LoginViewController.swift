@@ -340,12 +340,24 @@ class LoginViewController: UIViewController, LoginDisplayLogic
   func displaySomething(viewModel: Login.Something.ViewModel)
   {
     //nameTextField.text = viewModel.name
+    router?.routeToSomewhere(segue: nil)
+    displayLoading(false)
+    
   }
     
     func displayLoading(_ option: Bool = true){
-        view.addSubview(loadingView)
-        innerCircleView.rotate(clockwise: false)
-        outerCircleView.rotate(clockwise: true)
+        if option
+        {
+            view.addSubview(loadingView)
+            innerCircleView.rotate(clockwise: false)
+            outerCircleView.rotate(clockwise: true)
+            
+        }
+        else{
+            DispatchQueue.main.async{
+                self.loadingView.removeFromSuperview()
+            }
+        }
     }
 }
 

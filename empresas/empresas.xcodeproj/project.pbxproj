@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		8C4E65B12472EEF500AF0052 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B02472EEF500AF0052 /* KeychainHelper.swift */; };
+		8C4E65B82473000A00AF0052 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B22473000A00AF0052 /* HomePresenter.swift */; };
+		8C4E65B92473000A00AF0052 /* HomeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B32473000A00AF0052 /* HomeWorker.swift */; };
+		8C4E65BA2473000A00AF0052 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B42473000A00AF0052 /* HomeRouter.swift */; };
+		8C4E65BB2473000A00AF0052 /* HomeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B52473000A00AF0052 /* HomeModels.swift */; };
+		8C4E65BC2473000A00AF0052 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B62473000A00AF0052 /* HomeViewController.swift */; };
+		8C4E65BD2473000A00AF0052 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B72473000A00AF0052 /* HomeInteractor.swift */; };
 		8C5F7BC0246F149300DAEEF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F7BBF246F149300DAEEF1 /* AppDelegate.swift */; };
 		8C5F7BC2246F149300DAEEF1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F7BC1246F149300DAEEF1 /* SceneDelegate.swift */; };
 		8C5F7BC4246F149300DAEEF1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F7BC3246F149300DAEEF1 /* ViewController.swift */; };
@@ -29,6 +35,12 @@
 
 /* Begin PBXFileReference section */
 		8C4E65B02472EEF500AF0052 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		8C4E65B22473000A00AF0052 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		8C4E65B32473000A00AF0052 /* HomeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWorker.swift; sourceTree = "<group>"; };
+		8C4E65B42473000A00AF0052 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		8C4E65B52473000A00AF0052 /* HomeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModels.swift; sourceTree = "<group>"; };
+		8C4E65B62473000A00AF0052 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		8C4E65B72473000A00AF0052 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		8C5F7BBC246F149300DAEEF1 /* empresas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = empresas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C5F7BBF246F149300DAEEF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C5F7BC1246F149300DAEEF1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -148,6 +160,12 @@
 		8C5F7BD824705AD400DAEEF1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				8C4E65B22473000A00AF0052 /* HomePresenter.swift */,
+				8C4E65B32473000A00AF0052 /* HomeWorker.swift */,
+				8C4E65B42473000A00AF0052 /* HomeRouter.swift */,
+				8C4E65B52473000A00AF0052 /* HomeModels.swift */,
+				8C4E65B62473000A00AF0052 /* HomeViewController.swift */,
+				8C4E65B72473000A00AF0052 /* HomeInteractor.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -236,15 +254,21 @@
 				8C5F7BE024705B9200DAEEF1 /* LoginPresenter.swift in Sources */,
 				8C6FE2D12471C4A600645A32 /* Networking.swift in Sources */,
 				8C5F7BE724706A8500DAEEF1 /* UILabel+Extension.swift in Sources */,
+				8C4E65BD2473000A00AF0052 /* HomeInteractor.swift in Sources */,
+				8C4E65B92473000A00AF0052 /* HomeWorker.swift in Sources */,
+				8C4E65BA2473000A00AF0052 /* HomeRouter.swift in Sources */,
 				8C6FE2D52471C5CA00645A32 /* LoginResponse.swift in Sources */,
 				8C5F7BE324705B9200DAEEF1 /* LoginModels.swift in Sources */,
+				8C4E65BB2473000A00AF0052 /* HomeModels.swift in Sources */,
 				8C5F7BE224705B9200DAEEF1 /* LoginRouter.swift in Sources */,
 				8C5F7BE424705B9200DAEEF1 /* LoginViewController.swift in Sources */,
 				8C5F7BC4246F149300DAEEF1 /* ViewController.swift in Sources */,
 				8C5F7BC0246F149300DAEEF1 /* AppDelegate.swift in Sources */,
+				8C4E65BC2473000A00AF0052 /* HomeViewController.swift in Sources */,
 				8C5F7BC2246F149300DAEEF1 /* SceneDelegate.swift in Sources */,
 				8C4E65B12472EEF500AF0052 /* KeychainHelper.swift in Sources */,
 				8C5F7BE524705B9200DAEEF1 /* LoginInteractor.swift in Sources */,
+				8C4E65B82473000A00AF0052 /* HomePresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

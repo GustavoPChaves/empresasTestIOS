@@ -64,7 +64,6 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
         let password = KeychainHelper.load(key: "password")
         
         let loginData = Login.Something.LoginData(email: email?.toString() ?? "", password: password?.toString() ?? "")
-        print(loginData)
         presenter?.presentLoginData(loginData: loginData)
         
     } 
