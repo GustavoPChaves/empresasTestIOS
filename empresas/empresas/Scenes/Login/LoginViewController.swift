@@ -15,6 +15,8 @@ import UIKit
 protocol LoginDisplayLogic: class
 {
   func displaySomething(viewModel: Login.Something.ViewModel)
+    func displayError(viewModel: Login.Error.ViewModel)
+    func displayUserLogin(loginData: Login.Something.LoginData)
 }
 
 class LoginViewController: UIViewController, LoginDisplayLogic
@@ -70,7 +72,8 @@ class LoginViewController: UIViewController, LoginDisplayLogic
   {
     super.viewDidLoad()
     setupView()
-    doSomething()
+    //doLogin()
+    interactor?.getLoginStoredData()
     
   }
   
@@ -146,7 +149,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
         loginButton = UIButton()
         loginButton.setTitle("ENTRAR", for: .normal)
         loginButton.backgroundColor = UIColor(named: "pink")
-        //loginButton.addTarget(self, action: #selector(doLogin), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(doLogin), for: .touchUpInside)
         loginButton.layer.cornerRadius = 8
         
         passwordRevealButton = UIButton()
@@ -241,7 +244,8 @@ class LoginViewController: UIViewController, LoginDisplayLogic
         animator.startAnimation()
     }
     
-    func onError(){
+    func displayError(viewModel: Login.Error.ViewModel)
+    {
         presentErrorFeedback()
     }
     
@@ -273,11 +277,17 @@ class LoginViewController: UIViewController, LoginDisplayLogic
         emailTextField.backgroundColor = UIColor(named: "gray1")
         passwordTextField.backgroundColor = UIColor(named: "gray1")
     }
+     
+    func displayUserLogin(loginData: Login.Something.LoginData){
+         emailTextField.text = loginData.email
+         passwordTextField.text = loginData.password
+     }
     
   
-  func doSomething()
+  @objc func doLogin()
   {
-    let request = Login.Something.Request()
+    //let request = Login.Something.Request(email: "testeapple@ioasys.com.br", password: "12341234")
+    let request = Login.Something.Request(email: emailTextField.text!, password: passwordTextField.text!)
     interactor?.doSomething(request: request)
   }
   

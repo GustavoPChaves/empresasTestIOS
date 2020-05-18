@@ -20,12 +20,27 @@ enum Login
   {
     struct Request
     {
+        var email: String
+        var password: String
     }
     struct Response
     {
+        var user: LoginResponse
+        var headers: Headers
     }
     struct ViewModel
     {
     }
+    struct LoginData{
+        var email: String
+        var password: String
+    }
   }
+    enum Error
+    {
+        struct ViewModel
+        {
+            var message: String
+        }
+    }
 }

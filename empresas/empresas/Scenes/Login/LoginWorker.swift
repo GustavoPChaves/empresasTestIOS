@@ -14,12 +14,8 @@ import UIKit
 
 class LoginWorker
 {
-  func doSomeWork()
+  func doLogin(email: String, password: String, completion: @escaping (LoginResponse, Headers) -> ())
   {
-    Networking.shared.doLogin(email: "testeapple@ioasys.com.br", password: "12341234") { (LoginResponse, header) in
-        print(LoginResponse)
-        print(header)
-    }
-    
+    Networking.shared.doLogin(email: "testeapple@ioasys.com.br", password: "12341234", completion: completion)
   }
 }

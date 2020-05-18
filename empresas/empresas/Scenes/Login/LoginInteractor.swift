@@ -15,15 +15,22 @@ import UIKit
 protocol LoginBusinessLogic
 {
   func doSomething(request: Login.Something.Request)
+    func getLoginStoredData()
 }
 
 protocol LoginDataStore
 {
   //var name: String { get set }
+    var headers: Headers { get set}
+    var user: LoginResponse { get set}
 }
 
 class LoginInteractor: LoginBusinessLogic, LoginDataStore
 {
+    var user: LoginResponse = LoginResponse(success: false, investor: nil, enterprise: nil, errors: nil)
+    
+    var headers = Headers(token: "", uid: "", client: "")
+    
   var presenter: LoginPresentationLogic?
   var worker: LoginWorker?
   //var name: String = ""
@@ -33,9 +40,33 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
   func doSomething(request: Login.Something.Request)
   {
     worker = LoginWorker()
-    worker?.doSomeWork()
+    worker?.doLogin(email: request.email, password: request.password, completion: { (loginResponse, headers) in
+        
+        let response = Login.Something.Response(user: loginResponse, headers: headers)
+        
+        if loginResponse.success{
+            self.headers = headers
+            self.user = loginResponse
+            KeychainHelper.save(key: "email", data: request.email)
+            KeychainHelper.save(key: "password", data: request.password)
+            print(request.password)
+            self.presenter?.presentSomething(response: response)
+        }
+        else
+        {
+            self.presenter?.presentError(response: response)
+        }
+        
+    })
     
-    let response = Login.Something.Response()
-    presenter?.presentSomething(response: response)
   }
+    func getLoginStoredData(){
+        let email = KeychainHelper.load(key: "email")
+        let password = KeychainHelper.load(key: "password")
+        
+        let loginData = Login.Something.LoginData(email: email?.toString() ?? "", password: password?.toString() ?? "")
+        print(loginData)
+        presenter?.presentLoginData(loginData: loginData)
+        
+    } 
 }

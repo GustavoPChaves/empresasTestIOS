@@ -13,9 +13,10 @@ class Networking{
     let authenticationHeaders = ["access-token", "client", "uid"]
     let authenticationHeadersDefaultsKey = "authenticationHeaders"
     
-    func doLogin(email: String, password: String, completion: @escaping (LoginResponse, Headers?) -> ()){
+    func doLogin(email: String, password: String, completion: @escaping (LoginResponse, Headers) -> ()){
         let path = Endpoints.Login.doLogin.url
         let parameters = ["email": email, "password": password]
+        var headers = Headers(token: "", uid: "", client: "")
         
         guard let url = URL(string: path) else {return}
         
@@ -28,14 +29,12 @@ class Networking{
         }
         catch let error{
             print(error.localizedDescription)
-            completion(LoginResponse(success: false, investor: nil, enterprise: nil, errors: [error.localizedDescription] ), nil)
+            completion(LoginResponse(success: false, investor: nil, enterprise: nil, errors: [error.localizedDescription] ), headers)
         }
         
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         authenticationHeaders.forEach({request.addValue($0, forHTTPHeaderField: authenticationHeadersDefaultsKey)})
-        
-        print(request.allHTTPHeaderFields)
         
         let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             
@@ -53,7 +52,7 @@ class Networking{
                 //if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
 //                let json = try JSONSerialization.jsonObject(with: data, options: [])
 //                print(json)
-                var headers = Headers(token: "", uid: "", client: "")
+                
                 if let responseHeader = response as? HTTPURLResponse {
                     headers.token = responseHeader.value(forHTTPHeaderField: self.authenticationHeaders[0] ) ?? ""
                     headers.client = responseHeader.value(forHTTPHeaderField: self.authenticationHeaders[1]) ?? ""
@@ -68,7 +67,7 @@ class Networking{
                 //}
             } catch let error {
                 print(error.localizedDescription)
-                completion(LoginResponse(success: false, investor: nil, enterprise: nil, errors: [error.localizedDescription]), nil)
+                completion(LoginResponse(success: false, investor: nil, enterprise: nil, errors: [error.localizedDescription]), headers)
             }
         })
         task.resume()
