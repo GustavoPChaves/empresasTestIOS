@@ -43,13 +43,12 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
     worker?.doLogin(email: request.email, password: request.password, completion: { (loginResponse, headers) in
         
         let response = Login.Something.Response(user: loginResponse, headers: headers)
-        
+        print(response)
         if loginResponse.success{
             self.headers = headers
             self.user = loginResponse
             KeychainHelper.save(key: "email", data: request.email)
             KeychainHelper.save(key: "password", data: request.password)
-            print(request.password)
             self.presenter?.presentSomething(response: response)
         }
         else

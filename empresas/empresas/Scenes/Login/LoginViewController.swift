@@ -92,6 +92,9 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     var errorFeedbackLabel: UILabel!
     var errorEmailFeedbackImage: UIImageView!
     var errorPasswordFeedbackImage: UIImageView!
+    var loadingView: UIView!
+    var innerCircleView: UIView!
+    var outerCircleView: UIView!
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -159,6 +162,48 @@ class LoginViewController: UIViewController, LoginDisplayLogic
         view.addSubviews([backgroundImage, emailLabel, passwordLabel, emailTextField, passwordTextField, loginButton, greetingsLabel, iconImage, errorFeedbackLabel, errorPasswordFeedbackImage, errorEmailFeedbackImage, passwordRevealButton])
         
         setupConstraints()
+        
+        createLoadingView()
+        
+    }
+    
+    func createLoadingView(){
+        loadingView = UIView(frame: view.frame)
+        innerCircleView = UIView(frame: view.frame)
+        outerCircleView = UIView(frame: view.frame)
+        
+        let background = UIView(frame: view.frame)
+        background.backgroundColor = UIColor(named: "transparentBlack")
+        loadingView.addSubviews([background])
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: view.frame.width/2, y: view.frame.height/2), radius: CGFloat(50), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2 * 0.75), clockwise: true)
+
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = circlePath.cgPath
+
+        // Change the fill color
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        // You can change the stroke color
+        shapeLayer.strokeColor = UIColor(named: "lightPink")?.cgColor
+        // You can change the line width
+        shapeLayer.lineWidth = 5.0
+        
+        innerCircleView.layer.addSublayer(shapeLayer)
+        
+        
+        let circlePathInner = UIBezierPath(arcCenter: CGPoint(x: view.frame.width/2, y: view.frame.height/2), radius: CGFloat(30), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2 * 0.75), clockwise: true)
+
+        let shapeLayerInner = CAShapeLayer()
+        shapeLayerInner.path = circlePathInner.cgPath
+
+        // Change the fill color
+        shapeLayerInner.fillColor = UIColor.clear.cgColor
+        // You can change the stroke color
+        shapeLayerInner.strokeColor = UIColor(named: "lightPink")?.cgColor
+        // You can change the line width
+        shapeLayerInner.lineWidth = 5.0
+
+        outerCircleView.layer.addSublayer(shapeLayerInner)
+        loadingView.addSubviews([innerCircleView, outerCircleView])
         
     }
     
@@ -289,12 +334,19 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     //let request = Login.Something.Request(email: "testeapple@ioasys.com.br", password: "12341234")
     let request = Login.Something.Request(email: emailTextField.text!, password: passwordTextField.text!)
     interactor?.doSomething(request: request)
+    displayLoading()
   }
   
   func displaySomething(viewModel: Login.Something.ViewModel)
   {
     //nameTextField.text = viewModel.name
   }
+    
+    func displayLoading(_ option: Bool = true){
+        view.addSubview(loadingView)
+        innerCircleView.rotate(clockwise: false)
+        outerCircleView.rotate(clockwise: true)
+    }
 }
 
 extension LoginViewController: UITextFieldDelegate
