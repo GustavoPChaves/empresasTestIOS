@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C4052B32473500B005C0F5C /* EnterpriseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4052B22473500B005C0F5C /* EnterpriseTableViewCell.swift */; };
 		8C4E65B12472EEF500AF0052 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B02472EEF500AF0052 /* KeychainHelper.swift */; };
 		8C4E65B82473000A00AF0052 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B22473000A00AF0052 /* HomePresenter.swift */; };
 		8C4E65B92473000A00AF0052 /* HomeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B32473000A00AF0052 /* HomeWorker.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C4052B22473500B005C0F5C /* EnterpriseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterpriseTableViewCell.swift; sourceTree = "<group>"; };
 		8C4E65B02472EEF500AF0052 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		8C4E65B22473000A00AF0052 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		8C4E65B32473000A00AF0052 /* HomeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWorker.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				8C4E65B52473000A00AF0052 /* HomeModels.swift */,
 				8C4E65B62473000A00AF0052 /* HomeViewController.swift */,
 				8C4E65B72473000A00AF0052 /* HomeInteractor.swift */,
+				8C4052B22473500B005C0F5C /* EnterpriseTableViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				8C5F7BC0246F149300DAEEF1 /* AppDelegate.swift in Sources */,
 				8C4E65BC2473000A00AF0052 /* HomeViewController.swift in Sources */,
 				8C5F7BC2246F149300DAEEF1 /* SceneDelegate.swift in Sources */,
+				8C4052B32473500B005C0F5C /* EnterpriseTableViewCell.swift in Sources */,
 				8C4E65B12472EEF500AF0052 /* KeychainHelper.swift in Sources */,
 				8C5F7BE524705B9200DAEEF1 /* LoginInteractor.swift in Sources */,
 				8C4E65B82473000A00AF0052 /* HomePresenter.swift in Sources */,

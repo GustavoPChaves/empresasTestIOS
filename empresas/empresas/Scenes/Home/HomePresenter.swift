@@ -25,7 +25,7 @@ class HomePresenter: HomePresentationLogic
   
   func presentSomething(response: Home.Something.Response)
   {
-    let viewModel = Home.Something.ViewModel()
+    let viewModel = Home.Something.ViewModel(enterprises: response.enterprises)
     viewController?.displaySomething(viewModel: viewModel)
   }
 }

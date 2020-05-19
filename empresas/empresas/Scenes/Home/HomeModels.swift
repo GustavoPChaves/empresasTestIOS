@@ -20,12 +20,15 @@ enum Home
   {
     struct Request
     {
+        var searchTerm: String
     }
     struct Response
     {
+        var enterprises: [Enterprise]
     }
     struct ViewModel
     {
+        var enterprises: [Enterprise]
     }
   }
 }

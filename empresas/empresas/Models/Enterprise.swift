@@ -7,6 +7,11 @@
 //
 
 import Foundation
+
+struct EnterpriseResponse: Codable{
+    var enterprises: [Enterprise]
+    var errors: [String]?
+}
 struct Enterprise: Codable {
     let id: Int
     let emailEnterprise, facebook, twitter, linkedin: String?

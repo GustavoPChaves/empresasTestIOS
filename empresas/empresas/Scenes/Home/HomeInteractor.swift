@@ -38,13 +38,12 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
   func doSomething(request: Home.Something.Request)
   {
     worker = HomeWorker()
-    worker?.doSomeWork(type: 1, name: "aQm", headers: headers, completion: { (Enterprise) in
-        if let enterprise = Enterprise{
-            print(enterprise)
+    worker?.doSomeWork(type: user.investor?.id ?? 1, name: request.searchTerm, headers: headers, completion: { (enterpriseResponse) in
+        if let enterprise = enterpriseResponse?.enterprises{
+            let response = Home.Something.Response(enterprises: enterprise)
+            self.presenter?.presentSomething(response: response)
+            
         }
     })
-    
-    let response = Home.Something.Response()
-    presenter?.presentSomething(response: response)
   }
 }

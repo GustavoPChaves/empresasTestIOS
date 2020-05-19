@@ -70,7 +70,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
   {
     view.backgroundColor = .white
     super.viewDidLoad()
-    doSomething()
+    //doSomething()
     setupView()
   }
   
@@ -80,6 +80,11 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     var backgroundImage: UIImageView!
     var searchTextField: UITextField!
     var searchImage: UIImageView!
+    var enterprises: [Enterprise] = []
+    var enterprisesTableView: UITableView!
+    let cellId = "cellId"
+    
+    var timer: Timer?
     
     var backgroundBottomConstraint: NSLayoutConstraint!
     
@@ -114,8 +119,14 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         
         searchImage = UIImageView(image: #imageLiteral(resourceName: "search"))
         
+        enterprisesTableView = UITableView()
+        enterprisesTableView.register(EnterpriseTableViewCell.self, forCellReuseIdentifier: cellId)
+        enterprisesTableView.dataSource = self
+        enterprisesTableView.delegate = self
+        enterprisesTableView.separatorStyle = .none
+        enterprisesTableView.allowsSelection = false
         
-        view.addSubviews([backgroundImage, searchTextField, searchImage])
+        view.addSubviews([backgroundImage, searchTextField, searchImage, enterprisesTableView])
         
         setupConstraints()
         //createBackgroundAnimation()
@@ -155,7 +166,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         backgroundImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
-        backgroundBottomConstraint = backgroundImage.bottomAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height/3)
+        backgroundBottomConstraint = backgroundImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.frame.height/3)
         backgroundBottomConstraint.isActive = true
         
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -169,6 +180,12 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         searchImage.centerYAnchor.constraint(equalTo: searchTextField.centerYAnchor, constant: 0).isActive = true
         searchImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
         searchImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        enterprisesTableView.translatesAutoresizingMaskIntoConstraints = false
+        enterprisesTableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 56).isActive = true
+        enterprisesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
+        enterprisesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        enterprisesTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
         
     }
     func updateLayout(isEditing: Bool = true)
@@ -192,14 +209,17 @@ class HomeViewController: UIViewController, HomeDisplayLogic
   
   func doSomething()
   {
-    let request = Home.Something.Request()
+    let request = Home.Something.Request(searchTerm: searchTextField.text ?? "")
     interactor?.doSomething(request: request)
-    print("a")
   }
   
   func displaySomething(viewModel: Home.Something.ViewModel)
   {
     //nameTextField.text = viewModel.name
+    enterprises = viewModel.enterprises
+    DispatchQueue.main.async {
+        self.enterprisesTableView.reloadData()
+    }
   }
 }
 
@@ -208,8 +228,11 @@ extension HomeViewController: UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
         textField.resignFirstResponder()
-        if textField.text == ""{
+        if textField.text == "" && enterprises.count == 0{
             updateLayout(isEditing: false)
+        }
+        else{
+            doSomething()
         }
         return false
     }
@@ -217,5 +240,28 @@ extension HomeViewController: UITextFieldDelegate
         updateLayout(isEditing: true)
     }
     
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false, block: { (_) in self.doSomething()})
+    }
+    
 }
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        enterprises.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! EnterpriseTableViewCell
+        cell.configure(enterpriseName: enterprises[indexPath.row].enterpriseName)
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 128
+    }
+
+}
+
 

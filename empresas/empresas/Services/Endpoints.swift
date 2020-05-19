@@ -9,7 +9,7 @@
 import Foundation
 
 struct API {
-    static let baseUrl = "https://empresas.ioasys.com.br/api/v1/users/auth"
+    static let baseUrl = "https://empresas.ioasys.com.br/api/v1"
 }
 
 protocol Endpoint {
@@ -33,7 +33,7 @@ enum Endpoints {
         var path: String {
             switch self {
             case .doLogin:
-                return "sign_in"
+                return "/users/auth/sign_in"
             }
         }
     }
@@ -44,7 +44,7 @@ enum Endpoints {
         var path: String {
             switch self {
             case .getEnterprises(let type, let name):
-                return "enterprises?enterprise_types=1\(type)&name=\(name)"
+                return "enterprises?enterprise_types=\(type)&name=\(name)"
             }
         }
     }
