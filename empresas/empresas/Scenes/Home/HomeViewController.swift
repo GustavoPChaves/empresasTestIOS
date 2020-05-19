@@ -83,6 +83,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     var enterprises: [Enterprise] = []
     var enterprisesTableView: UITableView!
     var feedbackLabel: UILabel!
+    var noneFeedbackLabel: UILabel!
     var loadingView: LoadingView!
     let cellId = "cellId"
     
@@ -132,7 +133,11 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         feedbackLabel = UILabel()
         feedbackLabel.setup(text: "", color: UIColor(named: "gray3") ?? .gray, fontSize: 14)
         
-        view.addSubviews([backgroundImage, searchTextField, searchImage, enterprisesTableView, feedbackLabel])
+        noneFeedbackLabel = UILabel()
+        noneFeedbackLabel.setup(text: "Nenhum resultado encontrado", color: UIColor(named: "gray3") ?? .gray, fontSize: 18)
+        noneFeedbackLabel.isHidden = true
+        
+        view.addSubviews([backgroundImage, searchTextField, searchImage, enterprisesTableView, feedbackLabel, noneFeedbackLabel])
         
         setupConstraints()
         //createBackgroundAnimation()
@@ -189,7 +194,12 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         
         feedbackLabel.translatesAutoresizingMaskIntoConstraints = false
         feedbackLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        feedbackLabel.topAnchor.constraint(equalTo: searchTextField.topAnchor, constant: 16).isActive = true
+        feedbackLabel.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 16).isActive = true
+        
+        
+        noneFeedbackLabel.translatesAutoresizingMaskIntoConstraints = false
+        noneFeedbackLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+        noneFeedbackLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 166).isActive = true
         
         enterprisesTableView.translatesAutoresizingMaskIntoConstraints = false
         enterprisesTableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 56).isActive = true
@@ -198,6 +208,8 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         enterprisesTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
         
     }
+    
+    
     func updateLayout(isEditing: Bool = true)
     {
         if isEditing{
@@ -220,6 +232,10 @@ class HomeViewController: UIViewController, HomeDisplayLogic
   func doSomething()
   {
     let request = Home.Something.Request(searchTerm: searchTextField.text ?? "")
+    if request.searchTerm.isEmpty
+    {
+        return
+    }
     interactor?.doSomething(request: request)
     view.addSubview(loadingView)
   }
@@ -227,11 +243,23 @@ class HomeViewController: UIViewController, HomeDisplayLogic
   func displaySomething(viewModel: Home.Something.ViewModel)
   {
     //nameTextField.text = viewModel.name
-    enterprises = viewModel.enterprises
-    feedbackLabel.text = "\(enterprises.count) resultados encontrados"
-    loadingView.removeFromSuperview()
     DispatchQueue.main.async {
-        self.enterprisesTableView.reloadData()
+        
+        self.enterprises = viewModel.enterprises
+        if self.enterprises.count > 0 {
+            self.feedbackLabel.isHidden = false
+            self.feedbackLabel.text = "\(self.enterprises.count) resultados encontrados"
+            self.noneFeedbackLabel.isHidden = true
+            
+        }
+        else
+        {
+            self.feedbackLabel.isHidden = true
+            self.noneFeedbackLabel.isHidden = false
+        }
+        self.loadingView.removeFromSuperview()
+    self.enterprisesTableView.reloadData()
+        //self.view.layoutIfNeeded()
     }
   }
 }
@@ -268,6 +296,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! EnterpriseTableViewCell
         cell.configure(enterpriseName: enterprises[indexPath.row].enterpriseName)
+        cell.selectionStyle = .none
         return cell
     }
 

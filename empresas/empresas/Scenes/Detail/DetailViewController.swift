@@ -70,6 +70,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic
   override func viewDidLoad()
   {
     super.viewDidLoad()
+    view.backgroundColor = .white
     setupView()
     doSomething()
   }
@@ -80,6 +81,8 @@ class DetailViewController: UIViewController, DetailDisplayLogic
     var nameLabel: UILabel!
     var enterpriseDescriptionTextView: UITextView!
     var background: UIView!
+    var navigationBar: UINavigationBar!
+    var titleNavigationItem: UINavigationItem!
   
   func doSomething()
   {
@@ -87,8 +90,17 @@ class DetailViewController: UIViewController, DetailDisplayLogic
     interactor?.doSomething(request: request)
     
   }
+    @objc func dismissDetail(){
+        self.dismiss(animated: true, completion: nil)
+    }
     
     func setupView(){
+        navigationBar = UINavigationBar(frame: view.frame)
+        titleNavigationItem = UINavigationItem(title: "")
+        let backButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissDetail))
+        titleNavigationItem.leftBarButtonItem = backButton
+        navigationBar.setItems([titleNavigationItem], animated: false)
+        
         background = UIView()
         background.backgroundColor = UIColor(named: "backgroundColor1")
         
@@ -99,7 +111,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic
         
         nameLabel = UILabel()
         nameLabel.setup(text: "", color: .white, fontSize: 18)
-        view.addSubviews([background, nameLabel, enterpriseDescriptionTextView])
+        view.addSubviews([background, nameLabel, enterpriseDescriptionTextView, navigationBar])
         
         setupConstraints()
     }
@@ -107,7 +119,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic
         background.translatesAutoresizingMaskIntoConstraints = false
         background.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         background.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        background.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        background.topAnchor.constraint(equalTo: navigationBar.safeAreaLayoutGuide.topAnchor, constant: 52).isActive = true
         background.heightAnchor.constraint(equalToConstant: 120).isActive = true
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -126,8 +138,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic
   {
     //nameTextField.text = viewModel.name
     nameLabel.text = viewModel.name
+    titleNavigationItem.title = viewModel.name
     enterpriseDescriptionTextView.text = viewModel.description
-    print(viewModel.name)
-    print(viewModel.description)
   }
 }
