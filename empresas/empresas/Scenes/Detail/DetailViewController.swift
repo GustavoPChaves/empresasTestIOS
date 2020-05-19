@@ -73,7 +73,15 @@ class DetailViewController: UIViewController, DetailDisplayLogic
     view.backgroundColor = .white
     setupView()
     doSomething()
+    setupNavigation()
+    
   }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        
+
+    }
   
   // MARK: Do something
   
@@ -83,6 +91,8 @@ class DetailViewController: UIViewController, DetailDisplayLogic
     var background: UIView!
     var navigationBar: UINavigationBar!
     var titleNavigationItem: UINavigationItem!
+    var backButton: UIButton!
+    var leftBarButton: UIBarButtonItem!
   
   func doSomething()
   {
@@ -95,12 +105,10 @@ class DetailViewController: UIViewController, DetailDisplayLogic
     }
     
     func setupView(){
-        navigationBar = UINavigationBar(frame: view.frame)
         titleNavigationItem = UINavigationItem(title: "")
-        let backButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissDetail))
-        titleNavigationItem.leftBarButtonItem = backButton
-        navigationBar.setItems([titleNavigationItem], animated: false)
-        
+        navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44))
+        backButton = UIButton()
+        backButton.addTarget(self, action: #selector(dismissDetail), for: .touchUpInside)
         background = UIView()
         background.backgroundColor = UIColor(named: "backgroundColor1")
         
@@ -111,15 +119,31 @@ class DetailViewController: UIViewController, DetailDisplayLogic
         
         nameLabel = UILabel()
         nameLabel.setup(text: "", color: .white, fontSize: 18)
-        view.addSubviews([background, nameLabel, enterpriseDescriptionTextView, navigationBar])
         
+        view.addSubviews([background, nameLabel, enterpriseDescriptionTextView, navigationBar])
         setupConstraints()
+        
+    }
+    
+    func setupNavigation(){
+        backButton.setImage(#imageLiteral(resourceName: "return"), for: .normal)
+        
+        
+        leftBarButton = UIBarButtonItem()
+        leftBarButton.customView = backButton
+        
+        
+        titleNavigationItem.leftBarButtonItem = leftBarButton
+        
+        
+        navigationBar.setItems([titleNavigationItem], animated: true)
+ 
     }
     func setupConstraints(){
         background.translatesAutoresizingMaskIntoConstraints = false
         background.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         background.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        background.topAnchor.constraint(equalTo: navigationBar.safeAreaLayoutGuide.topAnchor, constant: 52).isActive = true
+        background.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 0).isActive = true
         background.heightAnchor.constraint(equalToConstant: 120).isActive = true
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -132,13 +156,32 @@ class DetailViewController: UIViewController, DetailDisplayLogic
         enterpriseDescriptionTextView.topAnchor.constraint(equalTo: background.bottomAnchor, constant: 24).isActive = true
         enterpriseDescriptionTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
         
+        
+        
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        navigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        navigationBar.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        backButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        titleNavigationItem.titleView?.translatesAutoresizingMaskIntoConstraints = false
+        titleNavigationItem.titleView?.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor, constant: 0).isActive = true
+        titleNavigationItem.titleView?.centerXAnchor.constraint(equalTo: navigationBar.centerXAnchor, constant: 0).isActive = true
+        titleNavigationItem.titleView?.widthAnchor.constraint(equalToConstant: 20).isActive = true
     }
   
   func displaySomething(viewModel: Detail.Something.ViewModel)
   {
     //nameTextField.text = viewModel.name
     nameLabel.text = viewModel.name
+    self.title = viewModel.name
     titleNavigationItem.title = viewModel.name
+    
     enterpriseDescriptionTextView.text = viewModel.description
   }
 }
+

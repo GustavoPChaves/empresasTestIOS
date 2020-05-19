@@ -140,7 +140,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         view.addSubviews([backgroundImage, searchTextField, searchImage, enterprisesTableView, feedbackLabel, noneFeedbackLabel])
         
         setupConstraints()
-        //createBackgroundAnimation()
+        createBackgroundAnimation()
     }
     
     func createBackgroundAnimation(){

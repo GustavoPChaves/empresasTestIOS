@@ -240,7 +240,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
         
         self.backgroundImage.mask(withPath: path)
         self.greetingsLabel.isHidden = true
-        self.iconImage.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 52).isActive = true
+        self.iconImage.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 37).isActive = true
         self.backgroundImage.bottomAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height/5).isActive = true
         
         let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeIn, animations: {

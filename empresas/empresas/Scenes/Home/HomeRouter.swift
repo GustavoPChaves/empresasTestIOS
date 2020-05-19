@@ -48,7 +48,7 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
   
   func navigateToSomewhere(source: HomeViewController, destination: DetailViewController)
   {
-    destination.modalPresentationStyle = .automatic
+    destination.modalPresentationStyle = .custom
     source.show(destination, sender: nil)
   }
   

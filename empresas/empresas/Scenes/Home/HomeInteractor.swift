@@ -50,6 +50,4 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
         }
     })
   }
-    
-    
 }
