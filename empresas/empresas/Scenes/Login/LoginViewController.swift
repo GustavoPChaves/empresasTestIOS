@@ -301,6 +301,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
         interactor?.doSomething(request: request)
         displayLoading()
         emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
     }
     
     func displaySomething(viewModel: Login.Something.ViewModel)

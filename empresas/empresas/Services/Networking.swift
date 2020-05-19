@@ -38,7 +38,7 @@ class Networking{
         
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-
+        
         let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             
             guard error == nil else {
@@ -56,11 +56,11 @@ class Networking{
                     headers.client = responseHeader.value(forHTTPHeaderField: AuthenticationHeaders.client.rawValue) ?? ""
                     headers.uid = responseHeader.value(forHTTPHeaderField: AuthenticationHeaders.uid.rawValue) ?? ""
                 }
-                              let json = try JSONSerialization.jsonObject(with: data, options: [])
-                              print(json)
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                print(json)
                 
                 let response = try JSONDecoder().decode(LoginResponse.self, from: data)
-
+                
                 completion(response, headers)
             } catch let error {
                 print(error.localizedDescription)
@@ -98,8 +98,8 @@ class Networking{
             
             do {
                 
-//              let json = try JSONSerialization.jsonObject(with: data, options: [])
-//              print(json)
+                //              let json = try JSONSerialization.jsonObject(with: data, options: [])
+                //              print(json)
                 
                 let response = try JSONDecoder().decode(EnterpriseResponse.self, from: data)
                 completion(response)

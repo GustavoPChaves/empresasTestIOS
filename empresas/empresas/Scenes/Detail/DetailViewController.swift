@@ -118,6 +118,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic
         enterpriseDescriptionTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         enterpriseDescriptionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant:  -16).isActive = true
         enterpriseDescriptionTextView.topAnchor.constraint(equalTo: background.bottomAnchor, constant: 24).isActive = true
+        enterpriseDescriptionTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
         
     }
   
