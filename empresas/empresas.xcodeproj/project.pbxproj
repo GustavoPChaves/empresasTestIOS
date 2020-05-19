@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		8C4052B32473500B005C0F5C /* EnterpriseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4052B22473500B005C0F5C /* EnterpriseTableViewCell.swift */; };
 		8C4D90FD247365A3004A311C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4D90FC247365A3004A311C /* LoadingView.swift */; };
+		8C4D9104247371B5004A311C /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4D90FE247371B5004A311C /* DetailPresenter.swift */; };
+		8C4D9105247371B5004A311C /* DetailWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4D90FF247371B5004A311C /* DetailWorker.swift */; };
+		8C4D9106247371B5004A311C /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4D9100247371B5004A311C /* DetailRouter.swift */; };
+		8C4D9107247371B5004A311C /* DetailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4D9101247371B5004A311C /* DetailModels.swift */; };
+		8C4D9108247371B5004A311C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4D9102247371B5004A311C /* DetailViewController.swift */; };
+		8C4D9109247371B5004A311C /* DetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4D9103247371B5004A311C /* DetailInteractor.swift */; };
 		8C4E65B12472EEF500AF0052 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B02472EEF500AF0052 /* KeychainHelper.swift */; };
 		8C4E65B82473000A00AF0052 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B22473000A00AF0052 /* HomePresenter.swift */; };
 		8C4E65B92473000A00AF0052 /* HomeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B32473000A00AF0052 /* HomeWorker.swift */; };
@@ -40,6 +46,12 @@
 /* Begin PBXFileReference section */
 		8C4052B22473500B005C0F5C /* EnterpriseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterpriseTableViewCell.swift; sourceTree = "<group>"; };
 		8C4D90FC247365A3004A311C /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		8C4D90FE247371B5004A311C /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
+		8C4D90FF247371B5004A311C /* DetailWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWorker.swift; sourceTree = "<group>"; };
+		8C4D9100247371B5004A311C /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
+		8C4D9101247371B5004A311C /* DetailModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModels.swift; sourceTree = "<group>"; };
+		8C4D9102247371B5004A311C /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		8C4D9103247371B5004A311C /* DetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractor.swift; sourceTree = "<group>"; };
 		8C4E65B02472EEF500AF0052 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		8C4E65B22473000A00AF0052 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		8C4E65B32473000A00AF0052 /* HomeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWorker.swift; sourceTree = "<group>"; };
@@ -193,6 +205,12 @@
 		8C5F7BD924705AEC00DAEEF1 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				8C4D90FE247371B5004A311C /* DetailPresenter.swift */,
+				8C4D90FF247371B5004A311C /* DetailWorker.swift */,
+				8C4D9100247371B5004A311C /* DetailRouter.swift */,
+				8C4D9101247371B5004A311C /* DetailModels.swift */,
+				8C4D9102247371B5004A311C /* DetailViewController.swift */,
+				8C4D9103247371B5004A311C /* DetailInteractor.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -269,12 +287,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C5F7BE924706AAC00DAEEF1 /* UIView+Extension.swift in Sources */,
+				8C4D9105247371B5004A311C /* DetailWorker.swift in Sources */,
 				8C5F7BE124705B9200DAEEF1 /* LoginWorker.swift in Sources */,
 				8C6FE2D32471C52A00645A32 /* Endpoints.swift in Sources */,
 				8C4E65BF24731F8A00AF0052 /* UITextField+Extensions.swift in Sources */,
+				8C4D9106247371B5004A311C /* DetailRouter.swift in Sources */,
 				8C5F7BE024705B9200DAEEF1 /* LoginPresenter.swift in Sources */,
 				8C6FE2D12471C4A600645A32 /* Networking.swift in Sources */,
 				8C5F7BE724706A8500DAEEF1 /* UILabel+Extension.swift in Sources */,
+				8C4D9109247371B5004A311C /* DetailInteractor.swift in Sources */,
 				8C4E65BD2473000A00AF0052 /* HomeInteractor.swift in Sources */,
 				8C4E65B92473000A00AF0052 /* HomeWorker.swift in Sources */,
 				8C4E65BA2473000A00AF0052 /* HomeRouter.swift in Sources */,
@@ -283,6 +304,7 @@
 				8C4E65BB2473000A00AF0052 /* HomeModels.swift in Sources */,
 				8CB41F31247334F500B80B15 /* Enterprise.swift in Sources */,
 				8C5F7BE224705B9200DAEEF1 /* LoginRouter.swift in Sources */,
+				8C4D9107247371B5004A311C /* DetailModels.swift in Sources */,
 				8C5F7BE424705B9200DAEEF1 /* LoginViewController.swift in Sources */,
 				8C5F7BC4246F149300DAEEF1 /* ViewController.swift in Sources */,
 				8C5F7BC0246F149300DAEEF1 /* AppDelegate.swift in Sources */,
@@ -291,6 +313,8 @@
 				8C5F7BC2246F149300DAEEF1 /* SceneDelegate.swift in Sources */,
 				8C4052B32473500B005C0F5C /* EnterpriseTableViewCell.swift in Sources */,
 				8C4E65B12472EEF500AF0052 /* KeychainHelper.swift in Sources */,
+				8C4D9104247371B5004A311C /* DetailPresenter.swift in Sources */,
+				8C4D9108247371B5004A311C /* DetailViewController.swift in Sources */,
 				8C5F7BE524705B9200DAEEF1 /* LoginInteractor.swift in Sources */,
 				8C4E65B82473000A00AF0052 /* HomePresenter.swift in Sources */,
 			);

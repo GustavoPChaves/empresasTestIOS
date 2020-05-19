@@ -22,10 +22,13 @@ protocol HomeDataStore
   //var name: String { get set }
     var headers: Headers { get set}
     var user: LoginResponse { get set}
+    var enterprises: [Enterprise] { get set}
 }
 
 class HomeInteractor: HomeBusinessLogic, HomeDataStore
 {
+    var enterprises: [Enterprise] = [Enterprise]()
+    
   var presenter: HomePresentationLogic?
   var worker: HomeWorker?
   //var name: String = ""
@@ -40,10 +43,13 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     worker = HomeWorker()
     worker?.doSomeWork(type: user.investor?.id ?? 1, name: request.searchTerm, headers: headers, completion: { (enterpriseResponse) in
         if let enterprise = enterpriseResponse?.enterprises{
+            self.enterprises = enterprise
             let response = Home.Something.Response(enterprises: enterprise)
             self.presenter?.presentSomething(response: response)
             
         }
     })
   }
+    
+    
 }

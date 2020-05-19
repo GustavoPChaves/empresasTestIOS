@@ -127,7 +127,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         enterprisesTableView.dataSource = self
         enterprisesTableView.delegate = self
         enterprisesTableView.separatorStyle = .none
-        enterprisesTableView.allowsSelection = false
+        //enterprisesTableView.allowsSelection = false
         
         feedbackLabel = UILabel()
         feedbackLabel.setup(text: "", color: UIColor(named: "gray3") ?? .gray, fontSize: 14)
@@ -273,6 +273,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 128
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        router?.routeToSomewhere(segue: nil, selectedEnterpriseId: indexPath.row)
     }
 
 }
