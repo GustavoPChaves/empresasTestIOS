@@ -1,3 +1,14 @@
+# Anotações de Gustavo Chaves #
+
+# Arquitetura #
+Foi escolhida arquitetura CLEAN SWIFT, estou estudando ela e estou aproveitando para por em prática sempre que posso
+
+# Dependências #
+O projeto não posseui dependências, tudo foi feito utilizando tecnologia nativa da Apple
+
+# Dificuldades #
+Server retornando erro 500 dificultou o andamento do projeto
+
 ![N|Solid](logo_ioasys.png)
 
 # README #
