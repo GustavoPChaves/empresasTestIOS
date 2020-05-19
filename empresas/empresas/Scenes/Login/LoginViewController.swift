@@ -14,72 +14,72 @@ import UIKit
 
 protocol LoginDisplayLogic: class
 {
-  func displaySomething(viewModel: Login.Something.ViewModel)
+    func displaySomething(viewModel: Login.Something.ViewModel)
     func displayError(viewModel: Login.Error.ViewModel)
     func displayUserLogin(loginData: Login.Something.LoginData)
 }
 
 class LoginViewController: UIViewController, LoginDisplayLogic
 {
-  var interactor: LoginBusinessLogic?
-  var router: (NSObjectProtocol & LoginRoutingLogic & LoginDataPassing)?
-
-  // MARK: Object lifecycle
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = LoginInteractor()
-    let presenter = LoginPresenter()
-    let router = LoginRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
-    }
-  }
-  
-  // MARK: View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    setupView()
-    //doLogin()
-    interactor?.getLoginStoredData()
+    var interactor: LoginBusinessLogic?
+    var router: (NSObjectProtocol & LoginRoutingLogic & LoginDataPassing)?
     
-  }
-  
-  // MARK: Do something
-  
-  //@IBOutlet weak var nameTextField: UITextField!
+    // MARK: Object lifecycle
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
+    {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
+    }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup()
+    {
+        let viewController = self
+        let interactor = LoginInteractor()
+        let presenter = LoginPresenter()
+        let router = LoginRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
+    
+    // MARK: Routing
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
+    
+    // MARK: View lifecycle
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        setupView()
+        //doLogin()
+        interactor?.getLoginStoredData()
+        
+    }
+    
+    // MARK: Do something
+    
+    //@IBOutlet weak var nameTextField: UITextField!
     var backgroundImage: UIImageView!
     var emailLabel: UILabel!
     var passwordLabel: UILabel!
@@ -92,9 +92,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     var errorFeedbackLabel: UILabel!
     var errorEmailFeedbackImage: UIImageView!
     var errorPasswordFeedbackImage: UIImageView!
-    var loadingView: UIView!
-    var innerCircleView: UIView!
-    var outerCircleView: UIView!
+    var loadingView: LoadingView!
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -102,6 +100,8 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     }
     
     func setupView(){
+        loadingView = LoadingView(view: view)
+        
         backgroundImage = UIImageView(frame: view.frame)
         backgroundImage.image = #imageLiteral(resourceName: "background")
         let path = UIBezierPath(ovalIn: CGRect(x: -view.frame.width/2, y: -view.frame.height*2/3, width: view.frame.width * 2, height: view.frame.height ))
@@ -165,48 +165,6 @@ class LoginViewController: UIViewController, LoginDisplayLogic
         
         setupConstraints()
         
-        createLoadingView()
-        
-    }
-    
-    func createLoadingView(){
-        loadingView = UIView(frame: view.frame)
-        innerCircleView = UIView(frame: view.frame)
-        outerCircleView = UIView(frame: view.frame)
-        
-        let background = UIView(frame: view.frame)
-        background.backgroundColor = UIColor(named: "transparentBlack")
-        loadingView.addSubviews([background])
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: view.frame.width/2, y: view.frame.height/2), radius: CGFloat(50), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2 * 0.75), clockwise: true)
-
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.path = circlePath.cgPath
-
-        // Change the fill color
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        // You can change the stroke color
-        shapeLayer.strokeColor = UIColor(named: "lightPink")?.cgColor
-        // You can change the line width
-        shapeLayer.lineWidth = 5.0
-        
-        innerCircleView.layer.addSublayer(shapeLayer)
-        
-        
-        let circlePathInner = UIBezierPath(arcCenter: CGPoint(x: view.frame.width/2, y: view.frame.height/2), radius: CGFloat(30), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2 * 0.75), clockwise: true)
-
-        let shapeLayerInner = CAShapeLayer()
-        shapeLayerInner.path = circlePathInner.cgPath
-
-        // Change the fill color
-        shapeLayerInner.fillColor = UIColor.clear.cgColor
-        // You can change the stroke color
-        shapeLayerInner.strokeColor = UIColor(named: "lightPink")?.cgColor
-        // You can change the line width
-        shapeLayerInner.lineWidth = 5.0
-
-        outerCircleView.layer.addSublayer(shapeLayerInner)
-        loadingView.addSubviews([innerCircleView, outerCircleView])
-        
     }
     
     func setupConstraints()
@@ -240,7 +198,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
         passwordLabel.translatesAutoresizingMaskIntoConstraints = false
         passwordLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         passwordLabel.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 16).isActive = true
-
+        
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.heightAnchor.constraint(equalToConstant: 48).isActive = true
         passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
@@ -294,6 +252,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     func displayError(viewModel: Login.Error.ViewModel)
     {
         presentErrorFeedback()
+        displayLoading(false)
     }
     
     @objc func revealPassword(){
@@ -302,58 +261,60 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     
     func presentErrorFeedback(_ option: Bool = true)
     {
-        errorFeedbackLabel.isHidden = !option
-        errorPasswordFeedbackImage.isHidden = !option
-        errorEmailFeedbackImage.isHidden = !option
-        passwordRevealButton.isHidden = option
-
-        if option
-        {
-            emailTextField.layer.borderWidth = 1
-            passwordTextField.layer.borderWidth = 1
+        DispatchQueue.main.async {
+            
+            
+            self.errorFeedbackLabel.isHidden = !option
+            self.errorPasswordFeedbackImage.isHidden = !option
+            self.errorEmailFeedbackImage.isHidden = !option
+            self.passwordRevealButton.isHidden = option
+            
+            if option
+            {
+                self.emailTextField.layer.borderWidth = 1
+                self.passwordTextField.layer.borderWidth = 1
+            }
+            else
+            {
+                self.emailTextField.borderStyle = .none
+                self.passwordTextField.borderStyle = .none
+                self.emailTextField.layer.borderWidth = 0
+                self.passwordTextField.layer.borderWidth = 0
+                
+            }
+            
+            self.emailTextField.backgroundColor = UIColor(named: "gray1")
+            self.passwordTextField.backgroundColor = UIColor(named: "gray1")
         }
-        else
-        {
-            emailTextField.borderStyle = .none
-            passwordTextField.borderStyle = .none
-            emailTextField.layer.borderWidth = 0
-            passwordTextField.layer.borderWidth = 0
-
-        }
-        
-        emailTextField.backgroundColor = UIColor(named: "gray1")
-        passwordTextField.backgroundColor = UIColor(named: "gray1")
     }
-     
+    
     func displayUserLogin(loginData: Login.Something.LoginData){
-         emailTextField.text = loginData.email
-         passwordTextField.text = loginData.password
-     }
+        emailTextField.text = loginData.email
+        passwordTextField.text = loginData.password
+    }
     
-  
-  @objc func doLogin()
-  {
-    //let request = Login.Something.Request(email: "testeapple@ioasys.com.br", password: "12341234")
-    let request = Login.Something.Request(email: emailTextField.text!, password: passwordTextField.text!)
-    interactor?.doSomething(request: request)
-    displayLoading()
-    emailTextField.resignFirstResponder()
-  }
-  
-  func displaySomething(viewModel: Login.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-    router?.routeToSomewhere(segue: nil)
-    displayLoading(false)
     
-  }
+    @objc func doLogin()
+    {
+        //let request = Login.Something.Request(email: "testeapple@ioasys.com.br", password: "12341234")
+        let request = Login.Something.Request(email: emailTextField.text!, password: passwordTextField.text!)
+        interactor?.doSomething(request: request)
+        displayLoading()
+        emailTextField.resignFirstResponder()
+    }
+    
+    func displaySomething(viewModel: Login.Something.ViewModel)
+    {
+        //nameTextField.text = viewModel.name
+        router?.routeToSomewhere(segue: nil)
+        displayLoading(false)
+        
+    }
     
     func displayLoading(_ option: Bool = true){
         if option
         {
             view.addSubview(loadingView)
-            innerCircleView.rotate(clockwise: false)
-            outerCircleView.rotate(clockwise: true)
             
         }
         else{

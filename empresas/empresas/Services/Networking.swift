@@ -56,6 +56,8 @@ class Networking{
                     headers.client = responseHeader.value(forHTTPHeaderField: AuthenticationHeaders.client.rawValue) ?? ""
                     headers.uid = responseHeader.value(forHTTPHeaderField: AuthenticationHeaders.uid.rawValue) ?? ""
                 }
+                              let json = try JSONSerialization.jsonObject(with: data, options: [])
+                              print(json)
                 
                 let response = try JSONDecoder().decode(LoginResponse.self, from: data)
 

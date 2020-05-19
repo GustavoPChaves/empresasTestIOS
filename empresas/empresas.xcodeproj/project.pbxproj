@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8C4052B32473500B005C0F5C /* EnterpriseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4052B22473500B005C0F5C /* EnterpriseTableViewCell.swift */; };
+		8C4D90FD247365A3004A311C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4D90FC247365A3004A311C /* LoadingView.swift */; };
 		8C4E65B12472EEF500AF0052 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B02472EEF500AF0052 /* KeychainHelper.swift */; };
 		8C4E65B82473000A00AF0052 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B22473000A00AF0052 /* HomePresenter.swift */; };
 		8C4E65B92473000A00AF0052 /* HomeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E65B32473000A00AF0052 /* HomeWorker.swift */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		8C4052B22473500B005C0F5C /* EnterpriseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterpriseTableViewCell.swift; sourceTree = "<group>"; };
+		8C4D90FC247365A3004A311C /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		8C4E65B02472EEF500AF0052 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		8C4E65B22473000A00AF0052 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		8C4E65B32473000A00AF0052 /* HomeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWorker.swift; sourceTree = "<group>"; };
@@ -79,6 +81,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C4D90F924735F6F004A311C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8C5F7BE624706A8500DAEEF1 /* UILabel+Extension.swift */,
+				8C5F7BE824706AAC00DAEEF1 /* UIView+Extension.swift */,
+				8C4E65BE24731F8A00AF0052 /* UITextField+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		8C5F7BB3246F149300DAEEF1 = {
 			isa = PBXGroup;
 			children = (
@@ -116,9 +128,8 @@
 		8C5F7BD324705A7C00DAEEF1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				8C5F7BE624706A8500DAEEF1 /* UILabel+Extension.swift */,
-				8C5F7BE824706AAC00DAEEF1 /* UIView+Extension.swift */,
-				8C4E65BE24731F8A00AF0052 /* UITextField+Extensions.swift */,
+				8C4D90F924735F6F004A311C /* Extensions */,
+				8C4D90FC247365A3004A311C /* LoadingView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -275,6 +286,7 @@
 				8C5F7BE424705B9200DAEEF1 /* LoginViewController.swift in Sources */,
 				8C5F7BC4246F149300DAEEF1 /* ViewController.swift in Sources */,
 				8C5F7BC0246F149300DAEEF1 /* AppDelegate.swift in Sources */,
+				8C4D90FD247365A3004A311C /* LoadingView.swift in Sources */,
 				8C4E65BC2473000A00AF0052 /* HomeViewController.swift in Sources */,
 				8C5F7BC2246F149300DAEEF1 /* SceneDelegate.swift in Sources */,
 				8C4052B32473500B005C0F5C /* EnterpriseTableViewCell.swift in Sources */,

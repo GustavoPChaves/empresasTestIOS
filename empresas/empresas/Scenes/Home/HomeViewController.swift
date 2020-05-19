@@ -82,6 +82,8 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     var searchImage: UIImageView!
     var enterprises: [Enterprise] = []
     var enterprisesTableView: UITableView!
+    var feedbackLabel: UILabel!
+    var loadingView: LoadingView!
     let cellId = "cellId"
     
     var timer: Timer?
@@ -101,6 +103,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     
     func setupView()
     {
+        loadingView = LoadingView(view: view, hasBackground: false)
         backgroundImage = UIImageView(frame: view.frame)
         backgroundImage.image = #imageLiteral(resourceName: "background")
         backgroundImage.clipsToBounds = true
@@ -126,7 +129,10 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         enterprisesTableView.separatorStyle = .none
         enterprisesTableView.allowsSelection = false
         
-        view.addSubviews([backgroundImage, searchTextField, searchImage, enterprisesTableView])
+        feedbackLabel = UILabel()
+        feedbackLabel.setup(text: "", color: UIColor(named: "gray3") ?? .gray, fontSize: 14)
+        
+        view.addSubviews([backgroundImage, searchTextField, searchImage, enterprisesTableView, feedbackLabel])
         
         setupConstraints()
         //createBackgroundAnimation()
@@ -181,6 +187,10 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         searchImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
         searchImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
         
+        feedbackLabel.translatesAutoresizingMaskIntoConstraints = false
+        feedbackLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
+        feedbackLabel.topAnchor.constraint(equalTo: searchTextField.topAnchor, constant: 16).isActive = true
+        
         enterprisesTableView.translatesAutoresizingMaskIntoConstraints = false
         enterprisesTableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 56).isActive = true
         enterprisesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
@@ -211,12 +221,15 @@ class HomeViewController: UIViewController, HomeDisplayLogic
   {
     let request = Home.Something.Request(searchTerm: searchTextField.text ?? "")
     interactor?.doSomething(request: request)
+    view.addSubview(loadingView)
   }
   
   func displaySomething(viewModel: Home.Something.ViewModel)
   {
     //nameTextField.text = viewModel.name
     enterprises = viewModel.enterprises
+    feedbackLabel.text = "\(enterprises.count) resultados encontrados"
+    loadingView.removeFromSuperview()
     DispatchQueue.main.async {
         self.enterprisesTableView.reloadData()
     }
