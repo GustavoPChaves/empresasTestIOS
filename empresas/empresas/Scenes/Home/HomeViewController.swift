@@ -110,6 +110,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         backgroundImage.image = #imageLiteral(resourceName: "background")
         backgroundImage.clipsToBounds = true
         backgroundImage.layer.masksToBounds = true
+        createBackground()
         
         searchTextField = UITextField()
         searchTextField.setLeftPaddingPoints(50)
@@ -140,19 +141,21 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         view.addSubviews([backgroundImage, searchTextField, searchImage, enterprisesTableView, feedbackLabel, noneFeedbackLabel])
         
         setupConstraints()
-        createBackground()
+        
     }
     
     func createBackground(){
         containerView = UIView()
-        view.addSubview(containerView)
+        backgroundImage.addSubview(containerView)
         containerView.frame = CGRect(x: 0, y:  0, width: view.frame.width, height: view.frame.height/4 )
         containerView.alpha = 0.1
         
-        let positions: [CGRect] = [CGRect(x: -5, y: 141, width: 116, height: 94),
-                                    CGRect(x: 54, y: 0, width: 204, height: 161),
-                                    CGRect(x: 204, y: 121, width: 119, height: 94),
-                                    CGRect(x: 259, y: 45, width: 119, height: 94)]
+        let scaleFactor = view.frame.width/375
+        
+        let positions: [CGRect] = [CGRect(x: -5  * scaleFactor, y: 121 * scaleFactor, width: 116 * scaleFactor, height: 94 * scaleFactor),
+                                    CGRect(x: 54 * scaleFactor, y: -20 * scaleFactor, width: 204 * scaleFactor, height: 161 * scaleFactor),
+                                    CGRect(x: 204 * scaleFactor, y: 101 * scaleFactor, width: 119 * scaleFactor, height: 94 * scaleFactor),
+                                    CGRect(x: 259 * scaleFactor, y: 25 * scaleFactor, width: 119 * scaleFactor, height: 94 * scaleFactor)]
         let rotations: [CGFloat] = [27, -132, 163, 163]
         
         for i in 0...3 {
@@ -160,6 +163,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
             containerView.addSubview(iconImage)
             iconImage.frame = positions[i]
             iconImage.rotate(angle: rotations[i])
+            iconImage.isUserInteractionEnabled = false
             
         }
     }
