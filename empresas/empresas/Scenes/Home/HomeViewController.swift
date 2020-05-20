@@ -86,6 +86,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     var noneFeedbackLabel: UILabel!
     var loadingView: LoadingView!
     let cellId = "cellId"
+    var containerView: UIView!
     
     var timer: Timer?
     
@@ -144,29 +145,41 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     }
     
     func createBackgroundAnimation(){
-        let containerView = UIView(frame: backgroundImage.frame)
-        backgroundImage.addSubview(containerView)
-        containerView.alpha = 0.5
+        containerView = UIView(frame: backgroundImage.bounds)
+        
+        view.addSubview(containerView)
+        containerView.frame = CGRect(x: 0, y:  0, width: view.frame.width, height: view.frame.height/3 )
+        
+        containerView.alpha = 0.1
         animator = UIDynamicAnimator(referenceView: containerView)
         
-        //let collision = UICollisionBehavior()
+        let collision = UICollisionBehavior()
         //collision.addItem(containerView)
         gravity = UIGravityBehavior()
-        //collision.translatesReferenceBoundsIntoBoundary = true
+        let fieldBehaviour = UIFieldBehavior.vortexField()
+        let radialGravity = UIFieldBehavior.radialGravityField(position: CGPoint(x: containerView.frame.width/2, y: containerView.frame.height/2))
+        fieldBehaviour.position = CGPoint(x: containerView.frame.width/2, y: containerView.frame.height/2)
+        fieldBehaviour.strength = 0.5
         
-        //animator.addBehavior(collision)
+        let size = Double(view.frame.width/25)
          
         for i in 1...4 {
             let iconImage = UIImageView(image: #imageLiteral(resourceName: "logo_icon"))
-            iconImage.frame.size = CGSize(width: 40 * i, height: 31 * (i))
 
             //collision.addBoundary(withIdentifier: iconImage, for: UIBezierPath(rect: iconImage.frame))
             containerView.addSubview(iconImage)
+            let multiplier = (1 + Double(i)/2) * size
+            iconImage.frame = CGRect(x: Double(i * 50), y: Double(i * 20), width: 4 * multiplier, height: 3.1 * multiplier)
             
-            //collision.addItem(iconImage)
             gravity.addItem(iconImage)
+            collision.addItem(iconImage)
+            //fieldBehaviour.addItem(iconImage)
+            //radialGravity.addItem(iconImage)
         }
-    
+    collision.translatesReferenceBoundsIntoBoundary = true
+        animator.addBehavior(collision)
+        animator.addBehavior(fieldBehaviour)
+        animator.addBehavior(radialGravity)
         animator.addBehavior(gravity)
         
     }
@@ -215,11 +228,13 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         if isEditing{
             
             backgroundBottomConstraint.constant = 44
+            containerView.alpha = 0
             
         }
         else{
             
             backgroundBottomConstraint.constant = view.frame.height/3
+            containerView.alpha = 0.1
         }
         
         let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut, animations: {
