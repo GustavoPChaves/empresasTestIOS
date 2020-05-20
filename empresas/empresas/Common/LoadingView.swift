@@ -31,7 +31,6 @@ class LoadingView: UIView {
             innerCircleView.rotate(clockwise: false)
             outerCircleView.rotate(clockwise: true)
         }
-        
     }
     
     func createLoadingView(view: UIView, hasBackground: Bool = true){
@@ -48,11 +47,8 @@ class LoadingView: UIView {
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = circlePath.cgPath
         
-        // Change the fill color
         shapeLayer.fillColor = UIColor.clear.cgColor
-        // You can change the stroke color
         shapeLayer.strokeColor = UIColor(named: "lightPink")?.cgColor
-        // You can change the line width
         shapeLayer.lineWidth = 5.0
         
         innerCircleView.layer.addSublayer(shapeLayer)
@@ -63,11 +59,8 @@ class LoadingView: UIView {
         let shapeLayerInner = CAShapeLayer()
         shapeLayerInner.path = circlePathInner.cgPath
         
-        // Change the fill color
         shapeLayerInner.fillColor = UIColor.clear.cgColor
-        // You can change the stroke color
         shapeLayerInner.strokeColor = UIColor(named: "lightPink")?.cgColor
-        // You can change the line width
         shapeLayerInner.lineWidth = 5.0
         
         outerCircleView.layer.addSublayer(shapeLayerInner)

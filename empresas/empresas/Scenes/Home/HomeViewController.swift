@@ -129,7 +129,6 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         enterprisesTableView.dataSource = self
         enterprisesTableView.delegate = self
         enterprisesTableView.separatorStyle = .none
-        //enterprisesTableView.allowsSelection = false
         
         feedbackLabel = UILabel()
         feedbackLabel.setup(text: "", color: UIColor(named: "gray3") ?? .gray, fontSize: 14)
@@ -141,14 +140,35 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         view.addSubviews([backgroundImage, searchTextField, searchImage, enterprisesTableView, feedbackLabel, noneFeedbackLabel])
         
         setupConstraints()
-        createBackgroundAnimation()
+        createBackground()
+    }
+    
+    func createBackground(){
+        containerView = UIView()
+        view.addSubview(containerView)
+        containerView.frame = CGRect(x: 0, y:  0, width: view.frame.width, height: view.frame.height/4 )
+        containerView.alpha = 0.1
+        
+        let positions: [CGRect] = [CGRect(x: -5, y: 141, width: 116, height: 94),
+                                    CGRect(x: 54, y: 0, width: 204, height: 161),
+                                    CGRect(x: 204, y: 121, width: 119, height: 94),
+                                    CGRect(x: 259, y: 45, width: 119, height: 94)]
+        let rotations: [CGFloat] = [27, -132, 163, 163]
+        
+        for i in 0...3 {
+            let iconImage = UIImageView(image: #imageLiteral(resourceName: "logo_icon"))
+            containerView.addSubview(iconImage)
+            iconImage.frame = positions[i]
+            iconImage.rotate(angle: rotations[i])
+            
+        }
     }
     
     func createBackgroundAnimation(){
         containerView = UIView(frame: backgroundImage.bounds)
         
         view.addSubview(containerView)
-        containerView.frame = CGRect(x: 0, y:  0, width: view.frame.width, height: view.frame.height/3 )
+        containerView.frame = CGRect(x: 0, y:  0, width: view.frame.width, height: view.frame.height/4 )
         
         containerView.alpha = 0.1
         animator = UIDynamicAnimator(referenceView: containerView)
@@ -157,7 +177,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         //collision.addItem(containerView)
         gravity = UIGravityBehavior()
         let fieldBehaviour = UIFieldBehavior.vortexField()
-        let radialGravity = UIFieldBehavior.radialGravityField(position: CGPoint(x: containerView.frame.width/2, y: containerView.frame.height/2))
+        let radialGravity = UIFieldBehavior.radialGravityField(position: CGPoint(x: containerView.frame.width/2, y: containerView.frame.height))
         fieldBehaviour.position = CGPoint(x: containerView.frame.width/2, y: containerView.frame.height/2)
         fieldBehaviour.strength = 0.5
         
@@ -166,15 +186,14 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         for i in 1...4 {
             let iconImage = UIImageView(image: #imageLiteral(resourceName: "logo_icon"))
 
-            //collision.addBoundary(withIdentifier: iconImage, for: UIBezierPath(rect: iconImage.frame))
             containerView.addSubview(iconImage)
             let multiplier = (1 + Double(i)/2) * size
             iconImage.frame = CGRect(x: Double(i * 50), y: Double(i * 20), width: 4 * multiplier, height: 3.1 * multiplier)
             
-            gravity.addItem(iconImage)
+            //gravity.addItem(iconImage)
             collision.addItem(iconImage)
             //fieldBehaviour.addItem(iconImage)
-            //radialGravity.addItem(iconImage)
+            radialGravity.addItem(iconImage)
         }
     collision.translatesReferenceBoundsIntoBoundary = true
         animator.addBehavior(collision)
@@ -190,7 +209,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         backgroundImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
-        backgroundBottomConstraint = backgroundImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.frame.height/3)
+        backgroundBottomConstraint = backgroundImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.frame.height/5)
         backgroundBottomConstraint.isActive = true
         
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -233,7 +252,8 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         }
         else{
             
-            backgroundBottomConstraint.constant = view.frame.height/3
+            backgroundBottomConstraint.constant = view.frame.height/5
+            
             containerView.alpha = 0.1
         }
         
