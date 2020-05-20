@@ -1,8 +1,6 @@
 # Anotações de Gustavo Chaves #
 
-* O teste foi iniciado no dia 15/05/2020
-* O projeto não pode ser concluido pois a API não retorna nada além de internal error 500 desde às 22:00 de 18/05/2020
-* Pendências: Estilo da tela de detalhes foi feito mas não testado.
+* O teste foi iniciado no dia 15/05/2020 até 20/05/2020
 
 # Arquitetura #
 Foi escolhida arquitetura CLEAN SWIFT, estou estudando ela e estou aproveitando para por em prática sempre que posso
